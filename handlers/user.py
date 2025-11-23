@@ -24,7 +24,5 @@ async def process_help_command(message: Message):
 @user_router.callback_query(F.data == LEXICON_RU["get_button"])
 async def process_get(callback: CallbackQuery):
     result = get_request()
-    if not result:
-        result = 'no'
-    print(result)
-    await callback.message.answer(text=result)
+    for res in result:
+        await callback.message.answer(text=str(res))

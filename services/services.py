@@ -14,7 +14,7 @@ def get_request():
     }
     try:
         response = requests.get(url, headers=headers)
-        return str(response.status_code)
+        return response.json()
             
     except requests.exceptions.RequestException as e:
         return(f"Ошибка при выполнении запроса: {e}")
