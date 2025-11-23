@@ -1,12 +1,6 @@
 from dataclasses import dataclass
 from environs import Env
 
-@dataclass
-class DatabaseConfig:
-    name: str
-    host: str
-    user: str
-    password: str
 
 @dataclass
 class TgBot:
@@ -14,21 +8,23 @@ class TgBot:
     admin_ids: list[int]
 
 @dataclass
+class LogSettings:
+    level: str
+    format: str
+
+@dataclass
 class Config:
     bot: TgBot
-#    db: DatabaseConfig
+    log: LogSettings
 
 
-# Создаем экземпляр класса Env
-env: Env = Env()
-
-# Добавляем в переменные окружения данные, прочитанные из файла .env
-env.read_env()
-
-# Создаем экземпляр класса Config и наполняем его данными из переменных окружения
-config = Config(
-    bot=TgBot(
-        token=env('BOT_TOKEN'),
-        admin_ids=list(map(int, env.list('ADMIN_IDS')))
+def load_config(path: str | None = None) -> Config:
+    # Создаем экземпляр класса Env
+    env = Env()
+    # Добавляем в переменные окружения данные, прочитанные из файла .env
+    env.read_env(path)
+    # Создаем экземпляр класса Config и наполняем его данными из переменных окружения
+    return Config(
+        bot=TgBot(token=env("BOT_TOKEN"), admin_ids=list(map(int, env.list('ADMIN_IDS')))),
+        log=LogSettings(level=env("LOG_LEVEL"), format=env("LOG_FORMAT")),
     )
-)
