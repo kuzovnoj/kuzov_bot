@@ -3,7 +3,7 @@ from aiogram.filters import Command, CommandStart
 from aiogram.types import Message, CallbackQuery
 from keyboards.keyboards import keyboard1
 from lexicon.lexicon import LEXICON_RU
-from services.services import get_request
+from services.services import get_request, retrieve_request
 
 user_router = Router()
 
@@ -24,5 +24,11 @@ async def process_help_command(message: Message):
 @user_router.callback_query(F.data == LEXICON_RU["get_button"])
 async def process_get(callback: CallbackQuery):
     result = get_request()
-    for res in result:
+    for res in result['results']:
         await callback.message.answer(text=str(res))
+
+
+@user_router.callback_query(F.data == LEXICON_RU["retrieve_button"])
+async def process_retrieve(callback: CallbackQuery):
+    result = retrieve_request()
+    await callback.message.answer(text=str(result))

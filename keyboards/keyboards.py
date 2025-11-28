@@ -10,7 +10,7 @@ button_get = InlineKeyboardButton(
     )
 button_retrieve = InlineKeyboardButton(
     text=LEXICON_RU["retrieve_button"],
-    callback_data='retrieve'
+    callback_data='Detail'
     )
 
 # Создаём клавиатуру с кнопками
