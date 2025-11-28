@@ -6,7 +6,8 @@ def get_request():
     env = Env()
     env.read_env()
     bearer_token=env("BEARER_TOKEN")
-
+    
+    print(bearer_token)
     url = "https://kuzovnojmaster.ru/api/"
     headers = {
         "Authorization": f"Bearer {bearer_token}",

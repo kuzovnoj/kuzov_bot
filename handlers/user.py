@@ -20,7 +20,7 @@ async def process_help_command(message: Message):
     await message.answer(text=LEXICON_RU["/help"])
 
 
-# Этот хэндлер срабатывает на согласие пользователя играть в игру
+# Этот хэндлер срабатывает на 
 @user_router.callback_query(F.data == LEXICON_RU["get_button"])
 async def process_get(callback: CallbackQuery):
     result = get_request()
